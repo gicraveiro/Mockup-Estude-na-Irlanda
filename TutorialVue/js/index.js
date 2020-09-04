@@ -1,4 +1,4 @@
-$(document).ready(function() { // executa asim que toda a pagina tiver terminado de carregar
+$(document).ready(function() { // executa assim que toda a pagina tiver terminado de carregar
 
    /* Evento de click do checkbox*/
      function toggleRemovido(ev) { 
