@@ -16,35 +16,14 @@
     
      	<h2>{{cabecalho}}</h2>
 
-     	<input v-model="novoLivro" @keyup.enter="addLivro"
-     		placeholder="Adicionar novo livro" type="text"
-     		class="form-control">
-     	<input v-model="novoAutor" @keyup.enter="addLivro"
-     		placeholder="Adicionar novo autor" type="text"
-     		class="form-control"> <br>
+     	<add-item-comp></add-item-comp>
 
-     	<span class="input-group-btn">
-     		<button @click="addLivro" class="js-add btn btn-primary btn-block"
-     			type="button">Adicionar!</button>
-     	</span>
-   
-     	<ul>
-
-     		<li v-for="livro in livros" v-bind:class="{ 'removido': livro.checked }" >
-     			<div class="checkbox">
-     				<label>
-     					<input class="js-livro" name="list" type="checkbox" v-model="livro.checked">
-     					<big>{{livro.titulo}}</big> - <small> {{livro.autor}}</small>
-     				</label>
-     			</div>
-     		</li>
-     	
-     	</ul>
+        <itens-comp></itens-comp>
     
      	<div class="footer">
      		<hr/>
      		<em> Modifique o título da lista: </em>
-     		<input v-model="cabecalho" /> 
+     		<altera-titulo-comp></altera-titulo-comp> 
      	</div>
      </div>
    

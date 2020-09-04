@@ -1,46 +1,6 @@
 $(document).ready(function() { // executa asim que toda a pagina tiver terminado de carregar
-     /**function onAdd() { //adiciona novos livros na lista
-           var $ul, li, $li, $label, $div, livro, autor;
-           livro = $('.js-novo-livro').val(); // atribui à variável livro o nome do livro digitado pelo usuário (campo de textode classe css js-novo-livro)
-           autor = $('.js-novo-autor').val();
 
-           if (livro === '') {
-                  return; // impede que itens vazios sejam adicionados à lista
-           }
-
-           $ul = $('ul');
-           $li = $('<li>').appendTo($ul);
-           $div = $('<div>')
-                  .addClass('checkbox')
-                  .appendTo($li);
-
-           $label = $('<label>').appendTo($div);
-           $('<input>')
-                  .attr('type', 'checkbox')
-                  .addClass('js-livro')
-                  .attr('name', 'list')
-                  .click(toggleRemovido)
-                  .appendTo($label);
-
-           $('<big>')
-           		  .appendTo($label)
-           		  .append(livro);
-
-           $label.append(" - ");
-
-           $('<small>')
-           		  .appendTo($label)
-           		  .append(autor);
-
-           $('.js-novo-livro, .js-novo-autor').val(''); // limpa o campo de texto para próxima digitação
-     }
-      * Add evento de click
-      */
-     
-
-     /**
-      * Evento de click do checkbox
-      */
+   /* Evento de click do checkbox*/
      function toggleRemovido(ev) { 
            var $el;
            $el = $(ev.currentTarget);
@@ -49,7 +9,7 @@ $(document).ready(function() { // executa asim que toda a pagina tiver terminado
  //    $('.js-add').click(onAdd); // atrela função de adicionar livro à classe do botão de adicionar(a todos os botôes dessa classe)
      $('.js-livro').click(toggleRemovido); // atrela função de atualizar estado do livro à classe do botão de checkbox de cada livro
  });
-// Comando 1
+
 var data = {
   livros: [{ titulo: 'Orange is The New Black', autor: 'Piper Kerman', checked: true },
           { titulo: 'A Origem das Espécies', autor: 'Charles Darwin', checked: false }],
@@ -57,23 +17,74 @@ var data = {
   novoLivro: '',
   novoAutor: ''
 };
-// Comando 2
+
+// Declarando os componentes
+
+var ItensComp = Vue.extend({
+  data: function () {
+    return data;
+  },
+  template: '<ul>' +
+   '           <li v-for="livro in livros" :class="{ \'removido\': livro.checked }">' +
+   '             <div class="checkbox">' +
+   '              <label>' +
+   '                     <input type="checkbox" v-model="livro.checked"> ' +
+   '                     <big>{{ livro.titulo }}</big> - <small>{{ livro.autor }}</small>' +
+   '              </label>' +
+   '             </div>' +
+   '           </li>' +
+   '         </ul>'
+});
+
+var AlteraTituloComp = Vue.extend({
+  data: function () {
+    return data;
+  },
+  template: '<input v-model="cabecalho"/>'
+});
+
+var AddItemComp = Vue.extend({
+  data: function () {
+    return data;
+  },
+  methods:{
+    addLivro: function () {
+      var titulo, autor;
+      titulo = this.novoLivro.trim();
+      autor = this.novoAutor.trim();
+      if(titulo) {
+        this.livros.push({
+          titulo: titulo,
+          autor: autor,
+          checked: false
+        });
+        this.novoLivro = "";
+        this.novoAutor = "";
+      }
+    }
+  },
+  template: 
+    '<div>' + 
+      '<input v-model="novoLivro" @keyup.enter="addLivro"' +
+                  ' placeholder="Adicionar título do livro" type="text" class="form-control" />'  +
+      '<input v-model="novoAutor" @keyup.enter="addLivro"' +
+                  ' placeholder="Adicionar autor do livro" type="text" class="form-control" /> <br/>'  +
+      '<span class="input-group-btn">' +
+      '  <button @click="addLivro" class="js-add btn btn-primary btn-block"' +
+              ' type="button">Adicionar!</button>'  +
+      '</span>' +
+    '<div>'
+});
+
+// Registrando Componentes
+
+Vue.component('itens-comp', ItensComp);
+Vue.component('altera-titulo-comp', AlteraTituloComp);
+Vue.component('add-item-comp', AddItemComp);
+
+//Instanciando o Vue
+
 new Vue({
    el: '#app',
-   data: data,
-   methods: {
-     addLivro: function () {
-       var titulo = this.novoLivro.trim();
-       var autor = this.novoAutor.trim();
-       if (titulo && autor) {
-         this.livros.push({
-           titulo: titulo,
-           autor: autor,
-           checked: false
-         });
-         this.novoLivro = '';
-         this.novoAutor = '';
-       }
-     }
-   }
+   data:data
  });
