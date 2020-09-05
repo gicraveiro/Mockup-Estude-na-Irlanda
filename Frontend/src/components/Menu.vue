@@ -39,8 +39,30 @@
           </b-navbar-item>
 
           <b-navbar-item>
-            <b-navbar-dropdown label="Data" boxed="true" arrowless="true" hoverable="true">
-  
+            <b-navbar-dropdown label="Data" boxed="false" arrowless="true" hoverable="true">
+              <b-field>
+                <label>Início: </label>
+                <b-datepicker
+                  v-model="selected"
+                  :show-week-number="showWeekNumber"
+                  :locale="locale"
+                  placeholder="Click to select..."
+                  icon="bell-outline"
+                  trap-focus>
+                </b-datepicker>
+              </b-field>
+              <b-field>
+                <label>Fim: </label>
+                <b-datepicker
+                  v-model="selected"
+                  :show-week-number="showWeekNumber"
+                  :locale="locale"
+                  placeholder="Click to select..."
+                  icon="calendar-today"
+                  trap-focus>
+                </b-datepicker>
+              </b-field>
+              
             </b-navbar-dropdown>
           </b-navbar-item>
 

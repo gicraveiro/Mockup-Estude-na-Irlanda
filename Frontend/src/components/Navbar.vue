@@ -28,15 +28,22 @@
 
         <template slot="end">
 
-          <b-navbar-item tag="div">
-            <b-navbar-dropdown label="Sino" arrowless="true">
+          <b-navbar-item icon="bell-outline" label="Sino" tag="div">
+            <b-navbar-dropdown v-model="statusInscricao" aria-role="list" arrowless="true">
+              <button type="button" slot="trigger">
+                <template>
+                  <b-icon icon="bell-outline"></b-icon>
+                  <span>Sino</span>
+                </template>
+                
+              </button>
               <b-navbar-item href="#">Inscrição submetida!</b-navbar-item>
               <b-navbar-item href="#">Inscrição sendo processada!</b-navbar-item>
               <b-navbar-item href="#">Inscrição realizada com sucesso!</b-navbar-item>
             </b-navbar-dropdown>
           </b-navbar-item>
           <b-navbar-item>
-            <b-navbar-dropdown label="Perfil" arrowless="true">
+            <b-navbar-dropdown label="Nicholas Doyle" icon="bell-outline" arrowless="true">
               <b-navbar-item href="#">Minha inscrição</b-navbar-item>
               <b-navbar-item href="#">Sair</b-navbar-item>
             </b-navbar-dropdown>
