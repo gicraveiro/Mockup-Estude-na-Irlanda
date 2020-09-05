@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="page">
     <!-- unico elemento -->
     <template>
       <b-navbar>
@@ -12,23 +12,36 @@
           </b-navbar-item>
         </template>
         <template slot="start">
-          <b-navbar-item href="#">Home</b-navbar-item>
-          <b-navbar-item href="#">Documentation</b-navbar-item>
-          <b-navbar-dropdown label="Info">
-            <b-navbar-item href="#">About</b-navbar-item>
-            <b-navbar-item href="#">Contact</b-navbar-item>
-          </b-navbar-dropdown>
+            <section>   
+                <b-autocomplete
+                    rounded
+                    v-model="name"
+                    :data="filteredDataArray"
+                    placeholder="Digite o nome da escola ou selecione os filtros abaixo"
+                    icon="magnify"
+                    clearable
+                    @select="option => selected = option">
+                    <template slot="empty">No results found</template>
+                </b-autocomplete>
+          </section>
         </template>
 
         <template slot="end">
+
           <b-navbar-item tag="div">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">Log in</a>
-            </div>
+            <b-navbar-dropdown label="Sino" arrowless="true">
+              <b-navbar-item href="#">Inscrição submetida!</b-navbar-item>
+              <b-navbar-item href="#">Inscrição sendo processada!</b-navbar-item>
+              <b-navbar-item href="#">Inscrição realizada com sucesso!</b-navbar-item>
+            </b-navbar-dropdown>
           </b-navbar-item>
+          <b-navbar-item>
+            <b-navbar-dropdown label="Perfil" arrowless="true">
+              <b-navbar-item href="#">Minha inscrição</b-navbar-item>
+              <b-navbar-item href="#">Sair</b-navbar-item>
+            </b-navbar-dropdown>
+          </b-navbar-item>          
+        
         </template>
       </b-navbar>
     </template>
@@ -37,7 +50,7 @@
 
 <script>
 export default {
-  name: "Sidebar",
+  name: "Navbar",
   data() {
     return {};
   },

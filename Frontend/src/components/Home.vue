@@ -1,11 +1,15 @@
 <template>
-  <div class="hello">
+  <div class="page">
     <Navbar></Navbar>
+    <Menu></Menu>
+    <Content></Content>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar";
+import Menu from "@/components/Menu";
+import Content from "@/components/Content";
 export default { 
   name: 'Home',
   /*data () {
@@ -14,7 +18,10 @@ export default {
     }
   },*/
   components: {
-    Navbar: Navbar
+    Navbar: Navbar,
+    Menu : Menu,
+    Content : Content,
+//    Teste : Teste
   }
 }
 </script>
