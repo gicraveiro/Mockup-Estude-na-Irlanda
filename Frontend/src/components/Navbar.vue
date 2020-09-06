@@ -2,7 +2,7 @@
   <div class="page">
     <!-- unico elemento -->
     <template>
-      <b-navbar>
+      <b-navbar fixed-top="true">
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
             <img
@@ -12,43 +12,39 @@
           </b-navbar-item>
         </template>
         <template slot="start">
-            <section>   
-                <b-autocomplete
-                    rounded
-                    v-model="name"
-                    :data="filteredDataArray"
-                    placeholder="Digite o nome da escola ou selecione os filtros abaixo"
-                    icon="magnify"
-                    clearable
-                    @select="option => selected = option">
-                    <template slot="empty">No results found</template>
-                </b-autocomplete>
+          <section>
+            <b-autocomplete
+              rounded
+              expanded 
+              v-model="name"
+              :data="filteredDataArray"
+              placeholder="Digite o nome da escola ou selecione os filtros abaixo"
+              icon="magnify"
+              clearable
+              @select="option => selected = option">
+              <template slot="empty">No results found</template>
+            </b-autocomplete>
           </section>
         </template>
 
         <template slot="end">
+          <b-dropdown>
+            <button class="button" slot="trigger">
+              <b-icon icon="bell-outline"></b-icon>
+            </button>
+            <b-dropdown-item href="#">Inscrição submetida!</b-dropdown-item>
+            <b-dropdown-item href="#">Inscrição sendo processada!</b-dropdown-item>
+            <b-dropdown-item href="#">Inscrição realizada com sucesso!</b-dropdown-item>
+          </b-dropdown>
 
-          <b-navbar-item icon="bell-outline" label="Sino" tag="div">
-            <b-navbar-dropdown v-model="statusInscricao" aria-role="list" arrowless="true">
-              <button type="button" slot="trigger">
-                <template>
-                  <b-icon icon="bell-outline"></b-icon>
-                  <span>Sino</span>
-                </template>
-                
-              </button>
-              <b-navbar-item href="#">Inscrição submetida!</b-navbar-item>
-              <b-navbar-item href="#">Inscrição sendo processada!</b-navbar-item>
-              <b-navbar-item href="#">Inscrição realizada com sucesso!</b-navbar-item>
-            </b-navbar-dropdown>
-          </b-navbar-item>
-          <b-navbar-item>
-            <b-navbar-dropdown label="Nicholas Doyle" icon="bell-outline" arrowless="true">
-              <b-navbar-item href="#">Minha inscrição</b-navbar-item>
-              <b-navbar-item href="#">Sair</b-navbar-item>
-            </b-navbar-dropdown>
-          </b-navbar-item>          
-        
+          <b-dropdown>
+            <button class="button" slot="trigger">
+              <b-icon icon="account-circle"></b-icon>
+              <p>Nicholas Doyle</p>
+            </button>
+            <b-dropdown-item href="#">Minha inscrição</b-dropdown-item>
+            <b-dropdown-item href="#">Sair</b-dropdown-item>
+          </b-dropdown>
         </template>
       </b-navbar>
     </template>
@@ -59,7 +55,23 @@
 export default {
   name: "Navbar",
   data() {
-    return {};
+    return {
+      data: [
+        "Dublin",
+        "Cork",
+      ],
+      name: "",
+      selected: null,
+    };
+  },
+  computed: {
+    filteredDataArray() {
+      return this.data.filter((option) => {
+        return (
+          option.toString().toLowerCase().indexOf(this.name.toLowerCase()) >= 0
+        );
+      });
+    },
   },
 };
 </script>
