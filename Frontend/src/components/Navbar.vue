@@ -1,13 +1,12 @@
 <template>
-  <div class="page">
-    <!-- unico elemento -->
+  <div class="navbarComponent"> <!-- unico elemento -->
     <template>
-      <b-navbar style="z-index:2;" fixed-top="true" centered="true">
+      <b-navbar fixed-top="true" centered="true">
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
             <img
-              src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-              alt="Lightweight UI components for Vue.js based on Bulma"
+              src="@/assets/logo.png"
+              alt="Logo - estude na Irlanda"
             />
           </b-navbar-item>
         </template>
@@ -78,4 +77,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.navbar.is-fixed-top {
+  z-index: 2;
+}
+
+.navbar-item img { /* tamanho 4.5 é mais preciso mas precisa alterar a posição do menu*/
+    max-height: 3.0rem; 
+}
 </style>

@@ -1,8 +1,7 @@
 <template>
-  <div class="page">
-    <!-- unico elemento -->
+  <div class="menuComponent">    <!-- unico elemento -->
     <template>
-      <b-navbar style="z-index:1;" transparent="true" >
+      <b-navbar transparent="true" >
         <template slot="start">
           <b-navbar-item tag="div">
             <b-icon icon="filter-outline"></b-icon>
@@ -11,19 +10,9 @@
             <label id="filtro">Filtros:</label>
           </b-navbar-item>
 
-          <b-dropdown class="vertical-center">
-            <button class="green" slot="trigger" hoverable="true">
-              <p>Cidades</p>
-            </button>
-            <b-navbar-item class="container">
-              <b-checkbox>Dublin</b-checkbox>
-              <b-checkbox>Dublin</b-checkbox>
-            </b-navbar-item>
-          </b-dropdown>
-
           <b-navbar-item tag="div">
-            <b-navbar-dropdown class="green" label="Cidades" arrowless="true" hoverable="true">
-              <b-navbar-item class="container" tag="div">
+            <b-navbar-dropdown tag="div" class="green" label="Cidades" arrowless="true" hoverable="true">
+              <b-navbar-item tag="div" class="container">
                 <b-checkbox>Dublin</b-checkbox>
                 <b-checkbox>Dublin</b-checkbox>
               </b-navbar-item>
@@ -36,13 +25,13 @@
                 <b-checkbox class="dropdown" v-model="checkboxGroup" native-value="Manhã">Manhã</b-checkbox>
                 <b-checkbox class="dropdown" v-model="checkboxGroup" native-value="Tarde">Tarde</b-checkbox>
                 <b-checkbox v-model="checkboxGroup" native-value="Noite">Noite</b-checkbox>
-                <b-checkbox v-model="checkboxGroup" native-value="Sabado">Sabado</b-checkbox>
+                <b-checkbox v-model="checkboxGroup" native-value="Sabado">Sábado</b-checkbox>
               </b-navbar-item>
             </b-navbar-dropdown>
           </b-navbar-item>
 
-          <b-navbar-item class="green">
-            <b-navbar-dropdown label="Aula" class="green" boxed="true" arrowless="true" hoverable="true">
+          <b-navbar-item>
+            <b-navbar-dropdown label="Aula" class="green" arrowless="true" hoverable="true">
               <b-navbar-item class="container">
                 <b-checkbox v-model="checkboxGroup" native-value="General">General</b-checkbox>
                 <b-checkbox v-model="checkboxGroup" native-value="Business">Business</b-checkbox>
@@ -51,7 +40,7 @@
           </b-navbar-item>
 
           <b-navbar-item >
-            <b-navbar-dropdown label="Vagas" style="color:white;" class="green" boxed="true" arrowless="true" hoverable="true">
+            <b-navbar-dropdown label="Vagas" class="green" arrowless="true" hoverable="true">
               <b-navbar-item class="container">
                 <b-checkbox v-model="checkboxGroup" native-value="Abertas">Abertas</b-checkbox>
                 <b-checkbox v-model="checkboxGroup" native-value="Fechado">Fechado</b-checkbox>
@@ -61,7 +50,7 @@
           </b-navbar-item>
 
           <b-navbar-item>
-            <b-navbar-dropdown label="Data" class="green" boxed="false" arrowless="true" hoverable="true">
+            <b-navbar-dropdown label="Data" class="green" arrowless="true" hoverable="true">
               <b-navbar-item class="container">
                 <b-field>
                   <label>Início: </label>
@@ -93,10 +82,10 @@
             <label>ordenar por:</label>
           </b-navbar-item>
 
-          <b-navbar-item class="orange">
+          <b-navbar-item tag="div" class="text-orange">
             <b-navbar-dropdown label="preço">
-              <b-navbar-item>preço</b-navbar-item>
-              <b-navbar-item>nota</b-navbar-item>
+              <b-navbar-item class="text-orange">preço</b-navbar-item>
+              <b-navbar-item class="text-orange">nota</b-navbar-item>
             </b-navbar-dropdown>
           </b-navbar-item>
 
@@ -104,12 +93,11 @@
             <label>valor:</label>
           </b-navbar-item>
 
-          <b-navbar-item size="lg">
-            <b-slider></b-slider>
+          <b-navbar-item>
+            <b-slider style="color:orange;">------------------------</b-slider>
           </b-navbar-item>
         </template>
 
-        <template slot="end"></template>
       </b-navbar>
     </template>
   </div>
@@ -121,20 +109,7 @@ export default {
   name: "Menu",
   data() {
     return {
-/*      sportsData: [
-        { Id: 'game1', Game: 'Badminton' },
-        { Id: 'game2', Game: 'Football' },
-        { Id: 'game3', Game: 'Tennis' },
-        { Id: 'game4', Game: 'Golf' },
-        { Id: 'game5', Game: 'Cricket' },
-        { Id: 'game6', Game: 'Handball' },
-        { Id: 'game7', Game: 'Karate' },
-        { Id: 'game8', Game: 'Fencing' },
-        { Id: 'game9', Game: 'Boxing' }
-      ],
-      fields : { text: 'Game', value: 'Id' }
-*/    };
-
+    };
   },
 };
 </script>
@@ -142,75 +117,72 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-/*
-.center { 
-  margin:auto;  
-}*/ /*nao funciona*/
-/*
-button {
-  background-color: brown;
-}*/
+.navbar {
+  z-index:1;
+}
 
 #filtro {
   font-size: 25px;
   font-weight: bold;
+  /*color: #4a4a4a;*/
 }
 
-.vertical-center {
-  top: 75%;
-  transform: translateY(-50%);
-}
-
-.green { /* a maior parte não funciona no navegador*/
-  background-color: #6B8E23;
+.green { /* white não funciona no navegador*/
+  background-color: #6DA544;
   border-radius:10px;
-  color: white;
+  color: white !important;
   font-size: 20px;
   font-family: arial;
   font-weight: bold;
   margin:0px;
 }
 
-.green:hover {
+.green:hover { /* botão do dropdown quando mouse está em cima*/
   background-color:orange;
-  color: white;
 }
 
 .container {
-  background-color: white;
-  color: orange;
+  background-color: #6DA544;; /* se o fundo das opções do dropdown funcionar, pode tirar esse comando */
+  color:white;
   display:flex;
   justify-content:left;
 }
-/*
-.orange {
-  color: orange;
-}*/
 
-.text-green /*:not(#filtro, b-navbar b-checkbox)*/{
-  color: #6B8E23;
+/* cores do checkbox ,nao funciona e nao sei se a sintaxe é aceita assim */
+.b-checkbox.checkbox input[type=checkbox]:checked + .check {
+    background: orange url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath style='fill:%23fff' d='M 0.04038059,0.6267767 0.14644661,0.52071068 0.42928932,0.80355339 0.3232233,0.90961941 z M 0.21715729,0.80355339 0.85355339,0.16715729 0.95961941,0.2732233 0.3232233,0.90961941 z'%3E%3C/path%3E%3C/svg%3E) no-repeat center center;
+    border-color: white !important;
+}
+
+.text-green {
+  color: #6DA544;;
   font-size: 20PX;
   font-weight: bold;
 }
 
-/*
-.dropbtn {
-  background-color: #435FF4;
-  border-radius:25px;
+.navbar-dropdown { /* ta certo, mas nao ta funcionando - fundo do dropdown*/
+  background-color: #6DA544;;
+}
+
+.text-orange { /* opções de ordenação*/
+  color: orange !important;
+}
+
+.b-slider.is-primary .b-slider-fill { /* ta certo, mas nao funciona */
+  background: orange;
+}
+
+.navbar-item:hover {
+  color:#6DA544;;
+}
+
+.navbar-link, a.navbar-item:focus-within { /* dropdown quando fechado e item do dropdown qdo mouse ta em cima -> certo, mas nao funciona */
+  color:white /*!important*/;
+}
+
+.navbar-link:hover { /* dropdown quando aberto -> certo, mas nao funciona*/
   color: white;
-  font-size: 16px;
-  border: none;
-  cursor: pointer; 
-}*/
-/*
-.dropdown {
-  background-color: #6B8E23;
-  color: white;
-}*/
-/*
-.b-navbar-item.b-navbar-dropdown.b-checkbox {
-  display: inline;
-  background-color: blue;
-}*/
+ /* background-color:orange !important; */ /* este está implementado na classe .green:hover */
+}
 
 </style>
