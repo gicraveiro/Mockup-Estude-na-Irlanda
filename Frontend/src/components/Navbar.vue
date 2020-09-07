@@ -2,7 +2,7 @@
   <div class="page">
     <!-- unico elemento -->
     <template>
-      <b-navbar fixed-top="true">
+      <b-navbar style="z-index:2;" fixed-top="true" centered="true">
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
             <img
