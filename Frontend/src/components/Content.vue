@@ -1,114 +1,171 @@
 <template>
-  <div class="contentComponent">
-    <section class="hero is-fullheight">
-      <b-pagination
-        :total="total"
-        v-model="current"
-        :range-before="rangeBefore"
-        :range-after="rangeAfter"
-        :order="order"
-        :size="size"
-        :per-page="perPage"
-        :icon-prev="prevIcon"
-        :icon-next="nextIcon"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-      ></b-pagination>
+  <section class="hero is-fullheight">
 
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="card" @click="isCardModalActive = true">
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-left">
-                    <figure class="image">
-                      <img src="@/assets/image.png" alt="Imagehey" />
-                    </figure>
-                  </div>
-                  <div class="media-content">
-                    <b-icon icon="star"></b-icon>
-                    <b-icon icon="star"></b-icon>
-                    <b-icon icon="star"></b-icon>
-                    <b-icon icon="star"></b-icon>
-                    <b-icon icon="star-outline"></b-icon>
-                    <p>R$ 3500</p>
-                    <p>Dublin</p>
-                  </div>
-                </div>
+<!-- PAGINATION  -->
+    <b-pagination
+      class="padding"
+      total=20
+      v-model="current"
+      range-before=3
+      range-after=3
+      order="is-centered"
+      size="is-small"
+      per-page=1
+      icon-prev="chevron-left"
+      icon-next="chevron-right"
+      aria-next-label="Next page"
+      aria-previous-label="Previous page"
+      aria-page-label="Page"
+      aria-current-label="Current page"
+    ></b-pagination>
 
-                <div class="content">Escola para brasileiros de língua inglesa.</div>
+<!-- LISTA DE CARDS -->
+    <div class="row" >
+      <div class="padding" v-for="(item,index) in listacards">
+  <!-- CARD -->
+        <div class="card" @click="isCardModalActive = true">
+      <!-- SEÇÃO SUPERIOR DO CARD -->
+          <div class="media">
+        <!-- IMAGEM DO CARD -->
+            <figure class="image">
+              <img src="@/assets/image.png" alt="Imagehey" />
+            </figure>
+
+            <div class="card-title">
+          <!-- ESTRELAS -->                
+              <b-icon icon="star"></b-icon>
+              <b-icon icon="star"></b-icon>
+              <b-icon icon="star"></b-icon>
+              <b-icon icon="star"></b-icon>
+              <b-icon icon="star-outline"></b-icon>
+        <!-- TITULO DO CARD -->
+              <p>R$ 3500</p>
+              <p>Dublin</p>
+            </div>
+          </div>
+
+      <!-- SEÇÃO INFERIOR DO CARD -->
+        <!-- TEXTO -->
+          <div class="content">
+            Escola para brasileiros de língua inglesa.
+          </div>
+
+        </div>
+    <!-- MODAL DENTRO DO CARD -->
+        <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
+      <!-- CARROUSEL COM AS IMAGENS GRANDES -->
+          <b-carousel class="white-background">
+            <b-carousel-item v-for="(carousel,i) in carousels" :key="i">
+              <div class="card-image">
+                <img src="@/assets/imagebig.png" alt="Image" />
               </div>
+            </b-carousel-item>
+          </b-carousel>
+      <!-- MODAL A - TEXTO -->
+          <div class="modalA" v-if="type === 'A'">
+
+            <div class="modal-card-title">
+                <div class="left">Escola para brasileiros de língua inglesa</div>
+                <div class="right">Dublin</div>
+            </div> 
+
+            <p class="texto">
+                Intercâmbio em Dublin é tudo de bom <br>
+                texto texto texto texto texto texto texto texto texto
+                texto texto texto texto texto texto texto texto texto
+                texto texto texto texto texto texto texto texto texto
+                texto texto texto texto texto texto texto texto texto
+              </p>
+      <!-- MINICARDS DENTRO DO MODAL -->
+            <div class="cards-do-modal">
+
+              <div class="card">
+                <div class="modal-card-title">
+                  <div class="left">Dublin</div>
+                  <div class="right">R$ 3500</div>
+                </div> 
+                  
+                <div class="content">
+                  20hs semanais <br>
+                  Inicio 20/08/2021 <br>
+                  Fim 10/11/2021 <br>
+                  Material Incluso <br>
+                </div>
+      <!-- BOTÕES DO MINICARD DO MODAL -->
+                <b-button @click="cardPageB">Saiba Mais</b-button>
+                <b-button @click="cardPageC" class="buttonB">Inscrever-se</b-button>
+              </div>
+
             </div>
 
-            <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
-              <div class="Modalcard">
-                <b-carousel>
-                  <b-carousel-item v-for="(carousel,i) in carousels" :key="i">
-                    <div class="card-image">
-                      <figure class="bigimage">
-                        <img src="@/assets/imagebig.png" alt="Image" />
-                      </figure>
-                    </div>
-                  </b-carousel-item>
-                </b-carousel>
-
-                <div class="card-content">
-
-                  <div class="media">
-
-                    <div class="media-content">
-                      <p class="title is-4">Dublin</p>
-                      <p class="subtitle is -6">
-                        Intercâmbio em Dublin é tudo de bom <br>
-                        texto texto texto texto texto texto texto texto texto
-                        texto texto texto texto texto texto texto texto texto
-                        texto texto texto texto texto texto texto texto texto
-                        texto texto texto texto texto texto texto texto texto
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="content">
-
-                  </div>
-
-                  <div class="cards-do-modal">
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </b-modal> 
           </div>
-        </div>
+
+      <!-- MODAL B - TEXTO -->
+          <div class="modalB" v-if="type === 'B'">
+            <div class="modal-card-title">
+                <div class="left">Escola para brasileiros de língua inglesa</div>
+                <div class="right">Dublin</div>
+            </div> 
+
+            <p class="texto">
+                MODAL B
+              </p>
+      <!-- MINICARDS DENTRO DO MODAL -->
+            <div class="white-background">
+              MODULO 1
+            </div>
+
+      <!-- BOTÕES DO MINICARD DO MODAL -->
+            <b-button @click="cardPageA">Voltar</b-button>
+            <b-button @click="cardPageC" class="buttonB">Inscrever-se</b-button>
+          </div>
+
+      <!-- MODAL C - TEXTO -->
+          <div class="modalC" v-if="type === 'C'">
+            <div class="modal-card-title">
+                <div class="left">Escola para brasileiros de língua inglesa</div>
+                <div class="right">Dublin</div>
+            </div> 
+            <div class="container">
+              <p class="texto">
+                MODAL C
+              </p>
+           <!-- BOTÕES DO MINICARD DO MODAL -->
+            <b-button @click="cardPageA">Voltar</b-button>
+          </div>    
+            </div>
+        </b-modal> 
       </div>
-    </section>
-  </div>
+    </div>
+
+  </section>
 </template>
 
 <script>
 export default {
   name: "Content",
+  methods:{
+    cardPageA(){
+      this.type="A";
+    },
+    cardPageB() {
+      this.type="B";
+    },
+    cardPageC (){
+      this.type="C"
+    }
+  },
   data() {
     return {
-      total: 20,
-      current: 1,
-      perPage: 1,
-      rangeBefore: 3,
-      rangeAfter: 3,
-      order: "is-centered",
-      size: "is-small",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
-      isCardModalActive: false,
-      carousels:[
+      current: 1, /* marca página atual no pagination */
+      isCardModalActive: false, /* indica se o modal está na tela no momento*/
+      carousels:[ /* diferentes páginas do carousel */
         {},{},{}
-      ]
+      ],
+      listacards: [ /* vetor de cards */
+        {},{},{}
+      ],
+      type:"A", /* indica modelo do card do modal a ser exibido */
     };
   },
 };
@@ -116,41 +173,91 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-section {
+section { /* plano de fundo do componente */
   background-color: #ff9811;
 }
-
-.image {
+.padding { /* padding dos cards e pagination */
+  padding:1rem;
+}
+.image { /* tamanho da imagem do card */
   width: 160px;
-  margin: 0 auto;
-  border-radius: 15px;
 }
 
-.card-image {
+.card-image { /* tamanho da imagem do modal */
   height:400px;
 }
 
-.card {
+.card { /* card */
   width: 20rem;
-  height: 180px;
+  height: 150px;
   background-color: #ffffff;
   border-radius: 15px;
-}
-
-.card-content {
   padding: 0; /* posicionar imagem do card*/
+  color: black;
 }
 
-.media-content {
+.card-title { /* titulo do card */
   text-align: center;
-  /*vertical-align:bottom;
-  height:50px;*/ /* nao funciona */
-}
-.content {
-  font-size: 15px;
 }
 
-.Modalcard {
+.modal-card-title { /* titulos dentro do modal */
+  clear:both;
+  font-weight:bold;
+  font-size: 1.25rem;
+}
+
+.left { /* titulo do card à esquerda */
+  float:left;
+}
+.right { /* titulo do card à direita */
+  text-align:right;
+}
+
+.texto { /* texto dos modais */
+  text-align:justify;
+  font-size:1.25rem;
+  color:black;
+  padding-top:1rem;
+}
+
+.cards-do-modal .modal-card-title { /* titulo dos minicards do modal */
+  color:white;
+  font-size: 20px;
+}
+
+.cards-do-modal .card { /* minicards dos modais */
+  height: 230px;
+  padding:1rem;
+  margin:2rem;
+  background-color:#ff9811;
+  color: white !important;
+  text-align:left;
+  font-family: arial;
+  font-weight: bold;
+}
+
+.content { /* texto de todos os cards */
+  font-size: 15px; 
+}
+
+.modalA .button, .modalC .button, .modalB .button { /* botões saiba mais e voltar */
   background-color: white;
+  color: #6DA544;
+  border-radius:15px;
+  font-weight:bold;
+  border-color:white;
+}
+
+.modalA { /* card A */
+  background-color: white;
+}
+.modalB { /* card B */
+  background-color: #ff9811;
+  color: white;
+}
+.modalC , .cardA .buttonB, .modalB .buttonB  { /* card C e botões inscrever-se */
+  background-color: #6DA544;
+  color:white;
+  border-color: #6da544;
 }
 </style>
