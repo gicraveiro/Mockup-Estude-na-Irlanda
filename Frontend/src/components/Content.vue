@@ -1,5 +1,6 @@
 <template>
   <section class="hero is-fullheight">
+    <!-- <span>TESTE {{props.checkboxCidades[0]}}</span>  DEBUGGANDO FILTRO DE CIDADES --> 
 
 <!-- PAGINATION  -->
     <b-pagination
@@ -21,7 +22,7 @@
 
 <!-- LISTA DE CARDS -->
     <div class="row" >
-      <div class="padding" v-for=" (item,index) in listacards && item in filtroCidades"> <!-- em fase de testes, trocar para || se quiser renderizar o card enqto nao funciona  -->
+      <div class="padding" v-for=" (item,index) in listacards /*&& item in filtroCidades*/"> <!-- em fase de testes  -->
   <!-- CARD -->
         <div class="card" v-show="true" @click="isCardModalActive = true">
       <!-- SEÇÃO SUPERIOR DO CARD -->
@@ -164,18 +165,19 @@ export default {
     },
     cardPageC (){
       this.type="C"
-    },
-    filtroCidades() { /* função para filtrar as cidades, em fase de testes */
+    }, 
+    /* função para filtrar as cidades, em fase de testes */
+    /*
+    filtroCidades2() { 
       return this.props.checkboxCidades.filter(item => {
-        return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        return item.toString().toLowerCase().indexOf(this.search.toLowerCase()) > -1
       })
-    },
+    }, */
   },
-
   data() {
     return {
       props: { /* filtrar cidades, em fase de testes */
-        buscarCidades:[]
+        checkboxCidades: ["Dublin"]
       },
       current: 1, /* marca página atual no pagination */
       isCardModalActive: false, /* indica se o modal está na tela no momento*/

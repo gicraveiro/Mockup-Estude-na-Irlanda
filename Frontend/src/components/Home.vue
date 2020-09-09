@@ -1,10 +1,8 @@
 <template>
   <div class="page">
     <Navbar></Navbar>
-    <Menu @filtraCidade="vetorCerto" v-on:retornarFiltroCidade="cidadesFiltradas"></Menu>
-    <!-- EM FASE DE TESTES -->
-    <span>cidades: {{checkboxCidades}}</span> <!-- DEBUGGANDO, TIRAR DPS -->
-    <Content :filtroCidadesProp="cidadesFiltradas"></Content>
+    <Menu @cidades-filtradas='filtrarCidades'></Menu>
+    <Content></Content> <!-- :checkbox-cidades="checkboxCidades" EM FASE DE TESTES -->
   </div>
 </template>
 
@@ -24,9 +22,9 @@ export default {
     Menu: Menu,
     Content: Content,
   },
-  methods: {
-    cidadesFiltradas (value) { /* EM FASE DE TESTES */
-      this.checkboxCidades = value;
+  methods: { /* recebe as cidades com checkbox  marcado e atualiza o vetor para filtrar as cidades */
+    filtrarCidades(cidadesFiltradas){
+      this.checkboxCidades = cidadesFiltradas;
     }
   }
 }

@@ -9,21 +9,21 @@
         <label id="filtro">Filtros:</label>
       </b-navbar-item>
 <!-- DROPDOWN CIDADES -->
-      <b-navbar-item tag="div">
-        <b-navbar-dropdown tag="div" class="dropdown-green" label="Cidades" arrowless="true" hoverable="true">
-          <b-navbar-item tag="div" class="container"><!-- v-on:b-checkbox="$emit("filtraCidade",this.filtroCidadesProp) -->
-            <b-checkbox v-model="filtroCidadesProp" native-value="Dublin" id="filtroCidadesProp">Dublin</b-checkbox>
-            <span>cidades: {{filtroCidadesProp}}</span> <!-- PARA DEBUGGAR - TIRAR DPS -->
-            <b-checkbox v-model="filtroCidadesProp" native-value="Cork">Cork</b-checkbox>
+      <b-navbar-item>
+        <b-navbar-dropdown class="dropdown-green" label="Cidades" arrowless="true" hoverable="true">
+          <b-navbar-item tag="div" class="container">
+            <b-checkbox v-model="filtroCidades" native-value="Dublin" id="dublin">Dublin</b-checkbox>
+            <b-checkbox v-model="filtroCidades" native-value="Cork">Cork</b-checkbox>
+            <b-button class="dropdown-green" @click='atualizarCidades()'>Filtrar</b-button>
           </b-navbar-item>
         </b-navbar-dropdown>
       </b-navbar-item>
 <!-- DROPDOWN HORÁRIO -->
       <b-navbar-item>
         <b-navbar-dropdown class="dropdown-green" label="Horário" arrowless="true" hoverable="true">
-          <b-navbar-item class="container">
-            <b-checkbox class="dropdown" v-model="checkboxGroup" native-value="Manhã">Manhã</b-checkbox>
-            <b-checkbox class="dropdown" v-model="checkboxGroup" native-value="Tarde">Tarde</b-checkbox>
+          <b-navbar-item tag="div" class="container">
+            <b-checkbox v-model="checkboxGroup" native-value="Manhã">Manhã</b-checkbox>
+            <b-checkbox v-model="checkboxGroup" native-value="Tarde">Tarde</b-checkbox>
             <b-checkbox v-model="checkboxGroup" native-value="Noite">Noite</b-checkbox>
             <b-checkbox v-model="checkboxGroup" native-value="Sabado">Sábado</b-checkbox>
           </b-navbar-item>
@@ -32,7 +32,7 @@
 <!-- DROPDOWN AULA -->
       <b-navbar-item>
         <b-navbar-dropdown label="Aula" class="dropdown-green" arrowless="true" hoverable="true">
-          <b-navbar-item class="container">
+          <b-navbar-item tag="div" class="container">
             <b-checkbox v-model="checkboxGroup" native-value="General">General</b-checkbox>
             <b-checkbox v-model="checkboxGroup" native-value="Business">Business</b-checkbox>
           </b-navbar-item>
@@ -41,7 +41,7 @@
 <!-- DROPDOWN VAGAS -->
       <b-navbar-item >
         <b-navbar-dropdown label="Vagas" class="dropdown-green" arrowless="true" hoverable="true">
-          <b-navbar-item class="container">
+          <b-navbar-item tag="div" class="container">
             <b-checkbox v-model="checkboxGroup" native-value="Abertas">Abertas</b-checkbox>
             <b-checkbox v-model="checkboxGroup" native-value="Fechado">Fechado</b-checkbox>
             <b-checkbox v-model="checkboxGroup" native-value="Em breve">Em breve</b-checkbox>
@@ -51,7 +51,7 @@
 <!-- DROPDOWN DATA -->
       <b-navbar-item>
         <b-navbar-dropdown label="Data" class="dropdown-green" arrowless="true" hoverable="true">
-          <b-navbar-item class="containerData">
+          <b-navbar-item tag="div" class="containerData">
             <b-field>
               <label>Início: </label>
               <b-datepicker
@@ -88,7 +88,12 @@
       </b-navbar-item>
 <!-- SLIDER VALOR -->
       <b-navbar-item>
-        <b-slider class="slider"></b-slider>
+        <b-slider 
+          class="slider" 
+          rounded
+          max="10000" 
+          :custom-formatter="val => 'R$ ' + val">
+        </b-slider>
       </b-navbar-item>
 
     </template>
@@ -98,9 +103,12 @@
 <script>
 export default {
   name: "Menu",
+  props: {
+    cidades: String
+  },
   data() {
     return {
-      filtroCidadesProp:[],
+      filtroCidades:[],
       checkboxHorario: [],
       checkboxAula: [],
       checkboxVagas: [],
@@ -108,9 +116,9 @@ export default {
       dataFim: new Date(),
     };
   },
-  watch: {
-    filtroCidadesProp: function() { /* em fase de testes */
-      this.$emit("filtraCidade",this.filtroCidadesProp)
+  methods: {
+    atualizarCidades(){
+      this.$emit("cidades-filtradas",this.filtroCidades);
     }
   }
 };
@@ -121,6 +129,8 @@ export default {
 
 .navbar { /* indica sobreposição da navbar para que se possa ver os dropdowns da outra navbar abertos */
   z-index:1;
+  margin-top:5rem;
+  margin-left:2rem;
 }
 
 #filtro { /* label filtros */
@@ -181,6 +191,11 @@ export default {
 
 .text-orange { /* opções do dropdown "ordenar por" */
   color: orange !important;
+}
+
+.navbar.is-transparent a.navbar-item:hover{ /* hover do preço, mas nao funcionae precisa conferir se está certo */
+  background-color:#6DA544;
+  color:white;
 }
 
 .b-slider.is-primary .b-slider-fill { /* cor do slider -> ta certo, mas nao funciona */
