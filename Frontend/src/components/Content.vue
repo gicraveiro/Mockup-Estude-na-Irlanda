@@ -21,9 +21,9 @@
 
 <!-- LISTA DE CARDS -->
     <div class="row" >
-      <div class="padding" v-for="(item,index) in listacards">
+      <div class="padding" v-for=" (item,index) in listacards && item in filtroCidades"> <!-- em fase de testes, trocar para || se quiser renderizar o card enqto nao funciona  -->
   <!-- CARD -->
-        <div class="card" @click="isCardModalActive = true">
+        <div class="card" v-show="true" @click="isCardModalActive = true">
       <!-- SEÇÃO SUPERIOR DO CARD -->
           <div class="media">
         <!-- IMAGEM DO CARD -->
@@ -69,7 +69,7 @@
                 <div class="right">Dublin</div>
             </div> 
 
-            <p class="texto">
+            <p class="textoA">
                 Intercâmbio em Dublin é tudo de bom <br>
                 texto texto texto texto texto texto texto texto texto
                 texto texto texto texto texto texto texto texto texto
@@ -107,12 +107,22 @@
                 <div class="right">Dublin</div>
             </div> 
 
-            <p class="texto">
-                MODAL B
+            <div class="modal-card-title">
+                <div class="left">General English</div>
+                <div class="right">R$3500</div>
+            </div> 
+            <p class="textoB">
+                20h semanais - Material incluso
               </p>
       <!-- MINICARDS DENTRO DO MODAL -->
-            <div class="white-background">
+            <div class="modal-modulo">
               MODULO 1
+            </div>
+            <div class="modal-modulo">
+              MODULO 2
+            </div>
+           <div class="modal-modulo">
+              MODULO 3
             </div>
 
       <!-- BOTÕES DO MINICARD DO MODAL -->
@@ -127,7 +137,7 @@
                 <div class="right">Dublin</div>
             </div> 
             <div class="container">
-              <p class="texto">
+              <p class="textoB">
                 MODAL C
               </p>
            <!-- BOTÕES DO MINICARD DO MODAL -->
@@ -142,10 +152,11 @@
 </template>
 
 <script>
+
 export default {
   name: "Content",
   methods:{
-    cardPageA(){
+    cardPageA(){ /* indica qual modelo de modal deve ser renderizado */
       this.type="A";
     },
     cardPageB() {
@@ -153,10 +164,19 @@ export default {
     },
     cardPageC (){
       this.type="C"
-    }
+    },
+    filtroCidades() { /* função para filtrar as cidades, em fase de testes */
+      return this.props.checkboxCidades.filter(item => {
+        return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+      })
+    },
   },
+
   data() {
     return {
+      props: { /* filtrar cidades, em fase de testes */
+        buscarCidades:[]
+      },
       current: 1, /* marca página atual no pagination */
       isCardModalActive: false, /* indica se o modal está na tela no momento*/
       carousels:[ /* diferentes páginas do carousel */
@@ -213,22 +233,18 @@ section { /* plano de fundo do componente */
   text-align:right;
 }
 
-.texto { /* texto dos modais */
-  text-align:justify;
-  font-size:1.25rem;
-  color:black;
-  padding-top:1rem;
-}
-
-.cards-do-modal .modal-card-title { /* titulo dos minicards do modal */
+.cards-do-modal .modal-card-title, .modalB .modal-card-title { /* titulo dos minicards do modal */
   color:white;
   font-size: 20px;
+  padding:1rem;
 }
 
 .cards-do-modal .card { /* minicards dos modais */
   height: 230px;
+  width: 280px;
   padding:1rem;
   margin:2rem;
+  margin-bottom:2rem;
   background-color:#ff9811;
   color: white !important;
   text-align:left;
@@ -240,24 +256,57 @@ section { /* plano de fundo do componente */
   font-size: 15px; 
 }
 
-.modalA .button, .modalC .button, .modalB .button { /* botões saiba mais e voltar */
+.modalA .button, .modalB .button, .modalC .button { /* botões saiba mais e voltar */
   background-color: white;
   color: #6DA544;
-  border-radius:15px;
+  border-radius:20px;
   font-weight:bold;
   border-color:white;
 }
 
-.modalA { /* card A */
+.modalA { /* modelo A do modal */
   background-color: white;
+  padding:1rem;
+  padding-left:0;
 }
-.modalB { /* card B */
+
+.modalB { /* modelo B do modal */
   background-color: #ff9811;
   color: white;
 }
-.modalC , .cardA .buttonB, .modalB .buttonB  { /* card C e botões inscrever-se */
+
+.modalC , .modalA .buttonB, .modalB .buttonB  { /* modelo C do modal e botões inscrever-se */
   background-color: #6DA544;
   color:white;
   border-color: #6da544;
 }
+
+/* texto dos modais */
+.textoA, .textoB { 
+  text-align:justify;
+  font-size:1.25rem;
+  padding-top:1rem;
+}
+
+.textoA { 
+  text-align:justify;
+  color:black;
+}
+
+.textoB {
+  color:white;
+  text-align:center;
+}
+
+.modal-modulo { /* container de modulo do modelo B de modal */
+  height:100px;
+  width:550px;
+  margin:2rem;
+  border-radius:15px;
+  padding:2rem;
+  background-color:white;
+  color: black;
+  text-align:left;
+}
+
 </style>

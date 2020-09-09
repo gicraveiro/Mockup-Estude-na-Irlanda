@@ -11,9 +11,10 @@
 <!-- DROPDOWN CIDADES -->
       <b-navbar-item tag="div">
         <b-navbar-dropdown tag="div" class="dropdown-green" label="Cidades" arrowless="true" hoverable="true">
-          <b-navbar-item tag="div" class="container">
-            <b-checkbox>Dublin</b-checkbox>
-            <b-checkbox>Dublin</b-checkbox>
+          <b-navbar-item tag="div" class="container"><!-- v-on:b-checkbox="$emit("filtraCidade",this.filtroCidadesProp) -->
+            <b-checkbox v-model="filtroCidadesProp" native-value="Dublin" id="filtroCidadesProp">Dublin</b-checkbox>
+            <span>cidades: {{filtroCidadesProp}}</span> <!-- PARA DEBUGGAR - TIRAR DPS -->
+            <b-checkbox v-model="filtroCidadesProp" native-value="Cork">Cork</b-checkbox>
           </b-navbar-item>
         </b-navbar-dropdown>
       </b-navbar-item>
@@ -50,14 +51,11 @@
 <!-- DROPDOWN DATA -->
       <b-navbar-item>
         <b-navbar-dropdown label="Data" class="dropdown-green" arrowless="true" hoverable="true">
-          <b-navbar-item class="container">
+          <b-navbar-item class="containerData">
             <b-field>
               <label>Início: </label>
               <b-datepicker
-                v-model="selected"
-                :show-week-number="showWeekNumber"
-                :locale="locale"
-                placeholder="Click to select..."
+                v-model="dataInicio"
                 icon="calendar-today"
                 trap-focus>
               </b-datepicker>
@@ -65,10 +63,7 @@
             <b-field>
               <label>Fim: </label>
               <b-datepicker
-                v-model="selected"
-                :show-week-number="showWeekNumber"
-                :locale="locale"
-                placeholder="Click to select..."
+                v-model="dataFim"
                 icon="calendar-today"
                 trap-focus>
               </b-datepicker>
@@ -93,7 +88,7 @@
       </b-navbar-item>
 <!-- SLIDER VALOR -->
       <b-navbar-item>
-        <b-slider style="color:orange;">------------------------</b-slider>
+        <b-slider class="slider"></b-slider>
       </b-navbar-item>
 
     </template>
@@ -101,13 +96,23 @@
 </template>
 
 <script>
-
 export default {
   name: "Menu",
   data() {
     return {
+      filtroCidadesProp:[],
+      checkboxHorario: [],
+      checkboxAula: [],
+      checkboxVagas: [],
+      dataInicio: new Date(),
+      dataFim: new Date(),
     };
   },
+  watch: {
+    filtroCidadesProp: function() { /* em fase de testes */
+      this.$emit("filtraCidade",this.filtroCidadesProp)
+    }
+  }
 };
 </script>
 
@@ -142,6 +147,20 @@ export default {
   color:white;
   display:flex;
   justify-content:left;
+  font-size:16px;
+}
+
+.containerData {
+  background-color: #6DA544;; /* se o fundo das opções do dropdown funcionar, pode tirar esse comando */
+  display:block;
+  width: 300px;
+  padding:1rem;
+  color:white;
+  font-size: 18px;
+}
+
+.containerData label {
+  padding:1rem;
 }
 
 /* cores do checkbox ,nao funciona e nao sei se a sintaxe é aceita assim */
@@ -175,6 +194,18 @@ export default {
 .navbar-link:hover { /* dropdown quando aberto -> certo, mas nao funciona*/
   color: white;
  /* background-color:orange !important; */ /* este está implementado na classe .dropdown-green:hover */
+}
+
+
+.b-slider.is-primary .b-slider-fill { /* barra do slider - certo, mas nao funciona */
+  background:orange;
+}
+.b-slider .b-slider-thumb-wrapper .b-slider-thumb { /* quadradinho do slider - certo, mas nao funciona */
+  background:#6DA544;
+  border:#6DA544;
+}
+.slider { /* comprimento do slider */
+  width:200px;
 }
 
 </style>

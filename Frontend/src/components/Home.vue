@@ -1,8 +1,10 @@
 <template>
   <div class="page">
     <Navbar></Navbar>
-    <Menu></Menu>
-    <Content></Content>
+    <Menu @filtraCidade="vetorCerto" v-on:retornarFiltroCidade="cidadesFiltradas"></Menu>
+    <!-- EM FASE DE TESTES -->
+    <span>cidades: {{checkboxCidades}}</span> <!-- DEBUGGANDO, TIRAR DPS -->
+    <Content :filtroCidadesProp="cidadesFiltradas"></Content>
   </div>
 </template>
 
@@ -14,12 +16,18 @@ export default {
   name: 'Home',
   data () {
     return {
+      checkboxCidades: ''
     }
   },
   components: {
     Navbar: Navbar,
-    Menu : Menu,
-    Content : Content,
+    Menu: Menu,
+    Content: Content,
+  },
+  methods: {
+    cidadesFiltradas (value) { /* EM FASE DE TESTES */
+      this.checkboxCidades = value;
+    }
   }
 }
 </script>

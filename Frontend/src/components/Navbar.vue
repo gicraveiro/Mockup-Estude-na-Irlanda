@@ -12,7 +12,7 @@
     <template slot="start">
       <b-autocomplete
         rounded
-        expanded
+        expanded 
         v-model="name"
         :data="filteredDataArray"
         placeholder="Digite o nome da escola ou selecione os filtros abaixo"
@@ -53,14 +53,14 @@
 export default {
   name: "Navbar",
   data() {
-    return {
+    return { /* dados do autocomplete */
       data: ["Dublin", "Cork"], /* opções inclusas no autocomplete */
       name: "",
       selected: null,
     };
   },
   computed: {
-    filteredDataArray() {
+    filteredDataArray() { /* função do autocomplete */
       return this.data.filter((option) => {
         return (
           option.toString().toLowerCase().indexOf(this.name.toLowerCase()) >= 0
