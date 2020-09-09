@@ -11,8 +11,8 @@
 <!-- BARRA DE BUSCA -->
     <template slot="start">
       <b-autocomplete
+        class="autocomplete"
         rounded
-        expanded 
         v-model="name"
         :data="filteredDataArray"
         placeholder="Digite o nome da escola ou selecione os filtros abaixo"
@@ -78,7 +78,17 @@ export default {
 }
 
 .navbar-item img {
-  /* tamanho 4.5 é mais preciso, mas precisa alterar a posição do menu, entao se der tempo eu faço */
-  max-height: 3rem;
+  max-height: 4.5rem;
+  margin-left:1rem;
 }
+
+.autocomplete {
+  width: 800px;
+  margin:1rem;
+}
+
+.button {
+  margin:1rem;
+}
+
 </style>

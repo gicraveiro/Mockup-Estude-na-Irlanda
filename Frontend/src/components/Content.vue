@@ -4,11 +4,11 @@
 
 <!-- PAGINATION  -->
     <b-pagination
-      class="padding"
+      class="pagination"
       total=20
       v-model="current"
-      range-before=3
-      range-after=3
+      range-before=1
+      range-after=1
       order="is-centered"
       size="is-small"
       per-page=1
@@ -197,10 +197,29 @@ export default {
 <style scoped>
 section { /* plano de fundo do componente */
   background-color: #ff9811;
+  padding:2rem;
 }
-.padding { /* padding dos cards e pagination */
+.padding { /* padding dos cards */
   padding:1rem;
 }
+
+.pagination { /* container do pagination */
+   width:380px;
+   padding:1rem;
+   position:absolute;
+   right:0px;
+}
+
+.pagination-link { /* ícones do paginaiton */
+  background-color: #6DA544;
+  color:white;
+  border:#6DA544;
+}
+
+.row {
+  margin-top:4rem; /* para alinhar os cards abaixo do pagination, que não está sendo considerado na ordem de elementos colocados */
+}
+
 .image { /* tamanho da imagem do card */
   width: 160px;
 }
