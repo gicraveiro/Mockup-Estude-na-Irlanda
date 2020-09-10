@@ -89,6 +89,7 @@ export default {
 
 .button {
   margin:1rem;
+  margin-bottom:0rem;
 }
 
 </style>

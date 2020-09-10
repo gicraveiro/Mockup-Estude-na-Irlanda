@@ -129,8 +129,9 @@ export default {
 
 .navbar { /* indica sobreposição da navbar para que se possa ver os dropdowns da outra navbar abertos */
   z-index:1;
-  margin-top:5rem;
+  margin-top:6.5rem;
   margin-left:2rem;
+  margin-bottom:1rem;
 }
 
 #filtro { /* label filtros */

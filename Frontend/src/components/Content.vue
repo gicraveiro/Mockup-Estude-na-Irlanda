@@ -198,6 +198,7 @@ export default {
 section { /* plano de fundo do componente */
   background-color: #ff9811;
   padding:2rem;
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,.2);
 }
 .padding { /* padding dos cards */
   padding:1rem;
